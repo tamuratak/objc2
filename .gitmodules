@@ -1,0 +1,3 @@
+[submodule "crates/icrate/src/generated"]
+	path = crates/icrate/src/generated
+	url = git@github.com:tamuratak/icrate-generated.git
