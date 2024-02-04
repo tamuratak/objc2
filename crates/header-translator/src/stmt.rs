@@ -470,7 +470,7 @@ fn parse_fn_param_children(entity: &Entity<'_>, context: &Context<'_>) {
         EntityKind::NSConsumed => {
             error!("found NSConsumed, which requires manual handling");
         }
-        kind => error!(?kind, "unknown"),
+        _ => error!(?entity, "unknown c"),
     });
 }
 
@@ -868,7 +868,7 @@ impl Stmt {
                     | EntityKind::ObjCProtocolRef
                     | EntityKind::TypeRef
                     | EntityKind::ParmDecl => {}
-                    _ => error!("unknown"),
+                    _ => error!(?entity, "unknown d"),
                 });
 
                 if context
@@ -954,7 +954,7 @@ impl Stmt {
                         boxable = true;
                     }
                     EntityKind::UnionDecl => error!("can't handle unions in structs yet"),
-                    _ => error!("unknown"),
+                    _ => error!(?entity, "unknown e"),
                 });
 
                 vec![Self::StructDecl {
@@ -1062,7 +1062,7 @@ impl Stmt {
                     EntityKind::VisibilityAttr => {
                         // Already exposed as entity.get_visibility()
                     }
-                    _ => error!("unknown"),
+                    _ => error!(?entity, "unknown f"),
                 });
 
                 if id.name.is_none() && variants.is_empty() {
@@ -1140,7 +1140,7 @@ impl Stmt {
                 }
 
                 if entity.is_variadic() {
-                    warn!("can't handle variadic function");
+                    warn!(?entity, "can't handle variadic function");
                     return vec![];
                 }
 
@@ -1170,10 +1170,12 @@ impl Stmt {
                         let ty = Ty::parse_function_argument(ty, context);
                         arguments.push((name, ty))
                     }
-                    EntityKind::VisibilityAttr => {
+                    EntityKind::VisibilityAttr
+                    | EntityKind::WarnUnusedResultAttr
+                    | EntityKind::PureAttr => {
                         // CG_EXTERN or UIKIT_EXTERN
                     }
-                    _ => error!("unknown"),
+                    _ => error!(?entity,"unknown g"),
                 });
 
                 let body = if entity.is_inline_function() {
@@ -1207,7 +1209,7 @@ impl Stmt {
                 vec![]
             }
             _ => {
-                error!("unknown");
+                error!(?entity, "unknown h");
                 vec![]
             }
         }

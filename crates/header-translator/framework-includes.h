@@ -33,6 +33,8 @@
 
 #import <CoreData/CoreData.h>
 
+#import <CoreGraphics/CGImage.h>
+
 #import <CoreLocation/CoreLocation.h>
 
 #import <CoreWLAN/CoreWLAN.h>

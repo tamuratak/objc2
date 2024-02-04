@@ -91,6 +91,9 @@ impl UnexposedAttr {
             "NS_REQUIRES_PROPERTY_DEFINITIONS" => None,
             // Weak specifiers - would be interesting if Rust supported weak statics
             "GK_EXTERN_WEAK" => None,
+            "CF_IMPLICIT_BRIDGING_ENABLED" => None,
+            | "CG_UNAVAILABLE_EMBEDDED" => None,
+            "__CG_DEPRECATED_ENUMERATOR" => None,
             // Availability attributes - their data is already exposed.
             "__IOS_AVAILABLE"
             | "__OSX_AVAILABLE_STARTING"

@@ -127,7 +127,7 @@ impl MethodModifiers {
             EntityKind::VisibilityAttr => {
                 // TODO: Handle these visibility attributes
             }
-            _ => error!("unknown"),
+            _ => error!(?entity, "unknown a"),
         });
 
         this
@@ -380,7 +380,7 @@ impl<'tu> PartialMethod<'tu> {
         }
 
         if entity.is_variadic() {
-            warn!("can't handle variadic method");
+            warn!(?entity, "can't handle variadic method");
             return None;
         }
 
@@ -429,7 +429,7 @@ impl<'tu> PartialMethod<'tu> {
                     }
                     // For some reason we recurse into array types
                     EntityKind::IntegerLiteral => {}
-                    _ => error!("unknown"),
+                    _ => error!(?entity, "unknown b"),
                 });
 
                 let ty = entity.get_type().expect("argument type");
